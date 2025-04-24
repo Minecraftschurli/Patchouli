@@ -29,3 +29,4 @@ plugins {
 
 rootProject.name = 'Patchouli'
 include("Xplat", "Fabric", "NeoForge")
+include 'Markdown'

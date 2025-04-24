@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'org.spongepowered.gradle.vanilla'
+}
+
+base {
+    archivesName = "${mod_name}-markdown"
+}
+version = "${mc_version}-${build_number}"
+if (System.getenv().RELEASE_MODE == null) {
+    version += '-SNAPSHOT'
+}
+
+minecraft {
+    version(mc_version)
+}
+
+dependencies {
+    implementation project(':Xplat')
+    String flexmarkVersion = "0.64.8"
+    
+    // Core Flexmark library
+    implementation "com.vladsch.flexmark:flexmark:$flexmarkVersion"
+
+    // Extensions for parsing tables, strikethrough, and YAML frontmatter
+    implementation "com.vladsch.flexmark:flexmark-ext-tables:$flexmarkVersion"
+    implementation "com.vladsch.flexmark:flexmark-ext-gfm-strikethrough:$flexmarkVersion"
+    implementation "com.vladsch.flexmark:flexmark-ext-yaml-front-matter:$flexmarkVersion"
+
+    // Include the 'flexmark-util' package to work with AST nodes
+    implementation "com.vladsch.flexmark:flexmark-util:$flexmarkVersion"
+
+    // Include 'flexmark-parser' for custom parsing extensions
+    // implementation "com.vladsch.flexmark:flexmark-parser:$flexmarkVersion"
+
+    implementation 'org.yaml:snakeyaml:2.2'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
